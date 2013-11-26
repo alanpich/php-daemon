@@ -44,7 +44,6 @@ class Daemon
         return true;
     }
 
-
     /**
      * Start the daemon
      *
@@ -57,12 +56,10 @@ class Daemon
             throw new Exception\ProcessStatusException("Daemon is already running");
         }
 
-        $pid = system("{$this->cmd} >{$this->logFile} 2>{$this->logFile} & echo $!");
+        $pid = system("{$this->cmd} >{$this->logFile} 2&1 & echo $!");
         file_put_contents($this->pidFile,$pid);
-        echo "Daemon started. pid {$pid}\n";
         return true;
     }
-
 
     /**
      * Get process status
@@ -73,8 +70,6 @@ class Daemon
     {
         return $this->pid !== false;
     }
-
-
 
 
     protected function readPid()
