@@ -71,6 +71,31 @@ class Daemon
         return $this->pid !== false;
     }
 
+    /**
+     * Ensure daemon is running, hiding any
+     * exceptions
+     */
+    public function ensureStarted()
+    {
+        if(!$this->status()){
+            $this->start();
+        }
+    }
+
+    /**
+     * Ensure daemon is stopped, hiding any
+     * exceptions
+     */
+    public function ensureStopped()
+    {
+        if($this->status()){
+            $this->stop();
+        }
+    }
+
+
+
+
 
     protected function readPid()
     {
